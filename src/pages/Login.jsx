@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { loginUser } from '../services'
+import LoginUserModel from '../models/loginUserModel';
 
 
 const Login = () => {
@@ -9,19 +10,22 @@ const Login = () => {
     
     const loginBtn = async () => {
         try {
-            
-            const user = await loginUser(email, password);
-         //   console.log("User", user);
+            const userData = {
+                email: email,
+                password: password
+            }
+            const user = new LoginUserModel(userData);
+            console.log(user);
+            await loginUser(user);
+          
         } catch (error) {
-          //  console.log(error);
+         
         }
     };
     
 
     const handleSubmit = (e) => {
         e.preventDefault();
-    
-
     };
 
     return (
