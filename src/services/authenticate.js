@@ -1,11 +1,11 @@
 // authenticate.js
 import luxeApi from "./api";
 
-const loginUser = async (email, password) => {
-    const loginUrl = 'v1/auth/login';
+const loginUser = async (user) => {
+    const loginUrl = '/v1/auth/login';
     
     try {
-        const response = await luxeApi.post(loginUrl, { email, password });
+        const response = await luxeApi.post(loginUrl, user);
         return response?.data;
     } catch (error) {
         console.error('Error during login:', error);
@@ -13,4 +13,17 @@ const loginUser = async (email, password) => {
     }
 };
 
-export { loginUser };
+
+const signUpuser = async (user) => {
+    const loginUrl = '/v1/auth/signup';
+    
+    try {
+        const response = await luxeApi.post(loginUrl, user );
+        return response?.data;
+    } catch (error) {
+        console.error('Error during login:', error);
+        throw error;
+    }
+};
+
+export { loginUser, signUpuser };
