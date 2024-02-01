@@ -47,7 +47,7 @@ const Header = () => {
                   <i className="ri-login-circle-line"></i> Login
                 </Link>
 
-                <Link to="#" className=" d-flex align-items-center gap-1">
+                <Link to="/Signup" className=" d-flex align-items-center gap-1">
                   <i className="ri-user-line"></i> Register
                 </Link>
               </div>
