@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const luxeApi = axios.create({
 
-    baseURL: 'http://localhost:10000', 
+    baseURL: 'https://luxe-wheels-backend.onrender.com', 
 }); 
  
 luxeApi.interceptors.response.use((response) =>

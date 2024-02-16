@@ -11,17 +11,17 @@ const Login = () => {
         try {
             
             const user = await loginUser(email, password);
-         //   console.log("User", user);
+        
         } catch (error) {
-          //  console.log(error);
+           
         }
+
     };
     
 
     const handleSubmit = (e) => {
         e.preventDefault();
     
-
     };
 
     return (

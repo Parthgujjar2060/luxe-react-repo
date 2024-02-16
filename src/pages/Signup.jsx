@@ -1,7 +1,9 @@
+import React, { useRef } from 'react';
+import { signUpuser } from '../services';
+import SignUpUserModel from '../models/signUpUserModel';
+import { useNavigate } from 'react-router-dom';
 
-import React, { useRef, useState } from 'react';
 import {
-  
   Box,
   Button,
   Card,
@@ -17,39 +19,41 @@ import {
   Text,
   VStack,
 } from '@chakra-ui/react';
-import { signUpuser } from '../services';
-import SignUpUserModel from '../models/signUpUserModel';
-
 
 const Signup = () => {
-
+  const navigate = useNavigate();
   const firstname = useRef('');
-  const lastname = useRef('');;
+  const lastname = useRef('');
   const username = useRef('');
   const password = useRef('');
+  const [signupStatus, setSignupStatus] = React.useState('');
 
+  const checkInputs = async () => {
+    try {
+      const user = {
+        fname: firstname.current.value,
+        lname: lastname.current.value,
+        email: username.current.value,
+        password: password.current.value,
+      };
 
-  const checkInputs = () => {
-    console.log(firstname.current.value, lastname.current.value, username.current.value, password.current.value);
-    console.log("Signing up");
-    handleSignup();
-  }
+      const signUpUser = new SignUpUserModel(user);
 
-  const handleSignup = async () => {
-  
-    const user = {
-      fname : firstname.current.value,
-      lname : lastname.current.value,
-      email : username.current.value,
-      password : password.current.value
+      const response = await signUpuser(user);
+      console.log("User", response);
+
+      if (response && response.status === 200) {
+        setSignupStatus("User signed up successfully");
+        navigate('/login');
+      } else if (response && response.status === 409) {
+        setSignupStatus("User already exists");
+        // Handle the case where the user already exists, show an error message or update UI accordingly
+      }
+    } catch (e) {
+      console.log("Error", e);
+      setSignupStatus("Error during signup");
     }
-   
-    const signUpUser = new SignUpUserModel(user);  
-
-    const response = await signUpuser(user);
-    console.log("User", response);
-  }
-
+  };
 
   return (
     <Box>
@@ -81,7 +85,7 @@ const Signup = () => {
                     />
                   </FormControl>
                   <FormControl>
-                    <FormLabel size='sm'>last Name</FormLabel>
+                    <FormLabel size='sm'>Last Name</FormLabel>
                     <Input
                       type='text'
                       bg='white'
@@ -105,7 +109,6 @@ const Signup = () => {
                   <FormControl>
                     <HStack justify='space-between'>
                       <FormLabel size='sm'>Password</FormLabel>
-
                     </HStack>
                     <Input
                       type='password'
@@ -117,23 +120,28 @@ const Signup = () => {
                     />
                   </FormControl>
 
-                  <Button onClick={checkInputs}
+                  <Button
+                    onClick={checkInputs}
                     bg='#2da44e'
                     color='white'
                     size='sm'
                     _hover={{ bg: '#2c974b' }}
                     _active={{ bg: '#298e46' }}
                   >
-                    Sign in
+                    Sign up
                   </Button>
+
+                  {signupStatus && (
+                    <Text fontSize='sm' color={signupStatus.includes("Error") ? 'red' : 'green'}>
+                      {signupStatus}
+                    </Text>
+                  )}
                 </Stack>
               </form>
             </CardBody>
           </Card>
 
-          <Card variant='outline' borderColor='#d0d7de'>
-
-          </Card>
+          <Card variant='outline' borderColor='#d0d7de'></Card>
         </Stack>
       </Center>
       <Center as='footer' mt='16'>
@@ -148,12 +156,12 @@ const Signup = () => {
             Security
           </Link>
           <Link isExternal href='#' fontSize='xs'>
-            Contac
+            Contact
           </Link>
         </HStack>
       </Center>
     </Box>
   );
-}
+};
 
 export default Signup;
