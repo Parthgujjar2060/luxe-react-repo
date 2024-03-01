@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 const luxeApi = axios.create({
-
    baseURL: 'https://luxe-wheels-backend.onrender.com', 
     // baseURL: 'http://10.0.0.75:10000',
 }); 
