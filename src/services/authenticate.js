@@ -1,8 +1,9 @@
 // authenticate.js
 import luxeApi from "./api";
 
+
 const loginUser = async (user) => {
-    const loginUrl = '/v1/auth/login';
+    const loginUrl = '/v2/auth/login';
     
     try {
         const response = await luxeApi.post(loginUrl, user);
@@ -15,7 +16,7 @@ const loginUser = async (user) => {
 
 
 const signUpuser = async (user) => {
-    const loginUrl = '/v1/auth/signup';
+    const loginUrl = '/v2/auth/signup';
     
     try {
         const response = await luxeApi.post(loginUrl, user );
