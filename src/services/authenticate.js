@@ -27,4 +27,17 @@ const signUpuser = async (user) => {
     }
 };
 
-export { loginUser, signUpuser };
+
+const carModels = async () => {
+    const carModelsUrl = '/v2/cars';
+    
+    try {
+        const response = await luxeApi.get(carModelsUrl);
+        return response?.data;
+    } catch (error) {
+        console.error('Error during login:', error);
+        throw error;
+    }
+}
+
+export { loginUser, signUpuser, carModels };
