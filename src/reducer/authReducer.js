@@ -1,6 +1,6 @@
 
 const initialState = {
-    userId: null,
+    user: null,
     sessionToken: null,
   };
   
@@ -9,7 +9,7 @@ const initialState = {
       case 'LOGIN_SUCCESS':
         return {
           ...state,
-          userId: action.payload.userId,
+          user: action.payload.userData,
           sessionToken: action.payload.sessionToken,
         }; 
       case 'LOGOUT':

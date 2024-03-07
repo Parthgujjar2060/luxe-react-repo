@@ -33,8 +33,10 @@ const Login = () => {
 
       const response = await loginUser(payload);
 
-      // dispatch(loginSuccess(response.userId, response.sessitoken));
-
+      dispatch(loginSuccess(response.userData, response.sessionToken));
+      setTimeout(() => {
+        window.location.href = '/home';
+      }, 1000);
     } catch (error) {
       setError('Invalid username or password');
     } finally {
