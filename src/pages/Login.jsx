@@ -1,45 +1,39 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { loginSuccess } from '../redux/actions';
 import { loginUser } from '../services';
 import LoginUserModel from '../models/loginUserModel';
-import{ BrowserInfoModel } from '../models/browserInfoModel.js';
-import logincss from '../styles/login.css';
-
+import { BrowserInfoModel } from '../models/browserInfoModel';
+import { Link } from 'react-router-dom';
+import '../styles/login.css';
 
 const Login = () => {
+  const dispatch = useDispatch();
   const [email, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   const loginBtn = async () => {
-
-    console.log('Login button clicked');
-
     try {
-
       setError(null);
       setLoading(true);
-        console.log("error null, loading true")
+
       const userData = {
-        email: email,
-        password: password,
+        email:email,
+        password:password,
       };
 
-      console.log('User data:', userData);
       const user = new LoginUserModel(userData);
       const browserData = new BrowserInfoModel();
       const payload = {
         user: user,
-        data : browserData
+        data: browserData
       };
 
-      console.log('Payload:', payload);
-
-      // API Call
       const response = await loginUser(payload);
 
-      console.log('Response:', response);
+      // dispatch(loginSuccess(response.userId, response.sessitoken));
 
     } catch (error) {
       setError('Invalid username or password');
@@ -48,14 +42,10 @@ const Login = () => {
     }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    loginBtn();
-  };
 
     return (
         <div style={styles.container}>
-            <form style={styles.form} onSubmit={handleSubmit}>
+            <form style={styles.form} >
                 <h2 style={styles.heading}>Login</h2>
                 <label style={styles.label}>
                     Username:
@@ -77,9 +67,11 @@ const Login = () => {
                         required
                     />
                 </label>
-                <button type="submit" style={styles.button} onClick={loginBtn}>
-                    Log In
-                </button>
+
+                <div onClick={loginBtn} style={styles.button}>
+                  Login
+                </div>
+
                 <Link to="/Signup">Do signup here</Link>
             </form>
             {loading && <p>Loading...</p>}

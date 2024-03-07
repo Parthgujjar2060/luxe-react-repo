@@ -30,12 +30,17 @@ const navLinks = [
 const Header = () => {
   const menuRef = useRef(null);
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const[userId, setUserID] = useState("")
 
   const toggleMenu = () => setMobileMenuOpen((prevState) => !prevState);
 
+
+
+
   return (
+
+
     <header className="header">
- 
 
       <div className="main__navbar">
         <Container>
@@ -44,7 +49,7 @@ const Header = () => {
               <i className="ri-menu-line"></i>
             </span>
 
-            <div className={`mobile__header ${isMobileMenuOpen ? "header__active" : ""}`}>
+            <div className={`mobile__header  ${isMobileMenuOpen ? "header__active" : ""}`}>
               <div className="menu">
                 {navLinks.map((item, index) => (
                   <NavLink
@@ -75,6 +80,7 @@ const Header = () => {
                           <Link to="/Signup" className=" d-flex align-items-center gap-1">
                             <i className="ri-user-line"></i> <RiUserLine /> Register
                           </Link>
+                          <div>{userId}</div>
                         </div>
                       </Col>
                     </Row>

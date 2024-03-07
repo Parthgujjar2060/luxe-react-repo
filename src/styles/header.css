@@ -160,7 +160,8 @@
   .menu a {
     color: #000d6b;
     font-weight: 600;
-    font-size: rem;
+    font-size: 1rem;
+    
   }
 
   .menu__active {
