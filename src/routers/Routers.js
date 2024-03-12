@@ -9,6 +9,7 @@ import Contact from "../pages/Contact";
 import Signup from "../pages/Signup";
 
 
+
 const Routers = () => {
   return (
     <Routes>
@@ -20,6 +21,7 @@ const Routers = () => {
       <Route path="/contact" element={<Contact />} />
       <Route path="/Login" element={<Login />} />
       <Route path="/Signup" element={<Signup />} />
+
     </Routes>
   );
 };

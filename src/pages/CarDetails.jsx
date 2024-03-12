@@ -1,4 +1,3 @@
-// CarDetails.jsx
 import React, { useEffect, useState } from "react";
 import { Container, Row, Col } from "reactstrap";
 import Helmet from "../components/Helmet/Helmet";
@@ -17,7 +16,7 @@ const CarDetails = () => {
         const data = await CarModel.getAllCars();
         setCarData(data);
       } catch (error) {
-        // Handle error
+      
         console.error('Error fetching car data:', error);
       }
     }

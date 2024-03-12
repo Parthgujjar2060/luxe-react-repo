@@ -14,6 +14,18 @@ const loginUser = async (user) => {
     }
 };
 
+const getuserData = async (userId) => {
+    const loginUrl = `/user`;
+  
+    try {
+        console.log("userId : ", userId);
+      const response = await luxeApi.post(loginUrl, { userId });
+      return response?.data;
+    } catch (error) {
+      console.error('Error during fetching user data:', error);
+      throw error;
+    }
+  };
 
 const signUpuser = async (user) => {
     const loginUrl = '/v2/auth/signup';
@@ -27,21 +39,11 @@ const signUpuser = async (user) => {
     }
 };
 
-const getuserData = async (userId) => {
-    const loginUrl = `/v2/auth/user/${userId}`;
-  
-    try {
-      const response = await luxeApi.get(loginUrl);
-      return response?.data;
-    } catch (error) {
-      console.error('Error during fetching user data:', error);
-      throw error;
-    }
-  };
 
 
-const sedanModel = async () => {
-    const carModelsUrl = '/v2/sedan';
+
+const getQueriedCars = async ({carType}) => {
+    const carModelsUrl = `/cars?q=${carType}`;
     
     try {
         const response = await luxeApi.get(carModelsUrl);
@@ -53,7 +55,7 @@ const sedanModel = async () => {
 }
 
 const hatchbackModel = async () => {
-    const carModelsUrl = '/v2/hatchback';
+    const carModelsUrl = '/cars?q=hatcback';
     
     try {
         const response = await luxeApi.get(carModelsUrl);
@@ -65,7 +67,7 @@ const hatchbackModel = async () => {
 }
 
 const suvModel = async () => {
-    const carModelsUrl = '/v2/suv';
+    const carModelsUrl = '/cars?q=suv';
 
     try{
         const response = await luxeApi.get(carModelsUrl);
@@ -79,7 +81,7 @@ const suvModel = async () => {
 }
 
 const sportModel = async () => {
-    const carModelUrl = '/v2/sport';
+    const carModelUrl = '/cars?q=sports';
     try {
         const repsonse = await luxeApi.get(carModelUrl);
         return repsonse?.data;
@@ -92,4 +94,4 @@ const sportModel = async () => {
 
 
 
-export { loginUser, signUpuser, sedanModel, hatchbackModel, suvModel, sportModel, getuserData };
+export { loginUser, signUpuser, getQueriedCars, hatchbackModel, suvModel, sportModel, getuserData };

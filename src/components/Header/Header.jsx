@@ -1,8 +1,10 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { RiLoginCircleLine, RiUserLine, RiMenuLine, RiSearchLine } from "react-icons/ri";
 import { Container, Row, Col } from "reactstrap";
 import { Link, NavLink } from "react-router-dom";
 import "../../styles/header.css";
+import { getuserData } from "../../services/authenticate";
+import { useSelector } from "react-redux";
 
 const navLinks = [
   {
@@ -26,20 +28,35 @@ const navLinks = [
     display: "Contact",
   },
 ];
-
 const Header = () => {
   const menuRef = useRef(null);
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const[userId, setUserID] = useState("")
+  const [userId, setUserID] = useState("");
 
   const toggleMenu = () => setMobileMenuOpen((prevState) => !prevState);
 
+  useEffect(() => {
+  
+    const fetchUserData = async () => {
+      try {
+          let userId = "";
+        
+           
+
+        console.log("userId : ", userId);
+       const userData = await getuserData(userId);
+        setUserID(`${userData.firstName} ${userData.lastName}`);
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+
+      }
+    };
 
 
+    fetchUserData();
+  }, []);
 
   return (
-
-
     <header className="header">
 
       <div className="main__navbar">

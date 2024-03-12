@@ -1,0 +1,47 @@
+/* Update the CSS for the dropdown */
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropbtn {
+  background-color: #f9f9f9;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  z-index: 1;
+  min-width: 160px;
+}
+
+.dropdown-content button {
+  width: 100%;
+  text-align: left;
+  padding: 10px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.dropdown-content button:hover {
+  background-color: yellow;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Added styles for the arrow icon */
+.arrow-icon {
+  display: inline-block;
+  margin-left: 8px;
+}
