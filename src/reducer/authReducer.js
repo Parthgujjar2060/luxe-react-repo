@@ -9,7 +9,7 @@ const initialState = {
       case 'LOGIN_SUCCESS':
         return {
           ...state,
-          user: action.payload.userData,
+          user: action.payload.userId,
           sessionToken: action.payload.sessionToken,
         }; 
       case 'LOGOUT':

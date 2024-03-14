@@ -1,9 +1,7 @@
-// actions.js
-export const loginSuccess = (userData, sessionToken) => ({
+export const loginSuccess = ({ user, sessionToken }) => ({
   type: 'LOGIN_SUCCESS',
-  payload: { userData, sessionToken },
+  payload: { user, sessionToken },
 });
-
   
   export const logout = () => ({
     type: 'LOGOUT',

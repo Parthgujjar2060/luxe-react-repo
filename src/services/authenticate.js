@@ -40,8 +40,6 @@ const signUpuser = async (user) => {
 };
 
 
-
-
 const getQueriedCars = async ({carType}) => {
     const carModelsUrl = `/cars?q=${carType}`;
     
@@ -53,45 +51,7 @@ const getQueriedCars = async ({carType}) => {
         throw error;
     }
 }
-
-const hatchbackModel = async () => {
-    const carModelsUrl = '/cars?q=hatcback';
-    
-    try {
-        const response = await luxeApi.get(carModelsUrl);
-        return response?.data;
-    } catch (error) {
-        console.error('Error during login:', error);
-        throw error;
-    }
-}
-
-const suvModel = async () => {
-    const carModelsUrl = '/cars?q=suv';
-
-    try{
-        const response = await luxeApi.get(carModelsUrl);
-        return response?.data;
-
-    }
-    catch(error){
-        console.error('Error during login:', error);
-        throw error;
-    }
-}
-
-const sportModel = async () => {
-    const carModelUrl = '/cars?q=sports';
-    try {
-        const repsonse = await luxeApi.get(carModelUrl);
-        return repsonse?.data;
-    }
-    catch (error) {
-        console.error('Error during login:', error);
-        throw error;
-    } 
-}
+ 
 
 
-
-export { loginUser, signUpuser, getQueriedCars, hatchbackModel, suvModel, sportModel, getuserData };
+export { loginUser, signUpuser, getQueriedCars, getuserData };

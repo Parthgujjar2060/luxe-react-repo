@@ -18,7 +18,7 @@ const Login = () => {
     try {
       setError(null);
       setLoading(true);
-
+      
       const userData = {
         email:email,
         password:password,
@@ -33,7 +33,10 @@ const Login = () => {
 
       const response = await loginUser(payload);
 
-      dispatch(loginSuccess(response.userData, response.sessionToken));
+      //dispatch commes here
+
+      console.log("response : ", response);
+      dispatch(loginSuccess(response));
       setTimeout(() => {
         window.location.href = '/home';
       }, 1000);
@@ -42,6 +45,8 @@ const Login = () => {
     } finally {
       setLoading(false);
     }
+
+     
   };
 
 
@@ -125,7 +130,6 @@ const styles = {
     marginTop: '10px',
     marginBottom: '10px',
   },
-  // Media query
   '@media (max-width: 768px)': {
     container: {
       height: '100vh',

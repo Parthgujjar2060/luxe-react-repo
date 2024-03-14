@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Row, Col } from "reactstrap";
 import Helmet from "../components/Helmet/Helmet";
 import CommonSection from "../components/UI/CommonSection";
@@ -9,13 +9,18 @@ import { getQueriedCars } from "../services";
 const CarListing = () => {
   const [selectedCarModels, setSelectedCarModels] = useState([]);
 
+  useEffect(() => {
+ 
+    console.log("Selected Car Models:", selectedCarModels);
+  }, [selectedCarModels]);
+
   const getCarModels = async (carType) => {
     console.log('Getting car models for:', carType);
     try {
-      console.log('making api call for:', carType);
+      console.log('Making API call for:', carType);
       const cars = await getQueriedCars({ carType });
       console.log(`Cars for ${carType}:`, cars.cars);
-      setSelectedCarModels(cars.cars);
+      setSelectedCarModels((prevModels) => [...prevModels, ...cars.cars]);
     } catch (error) {
       console.error('Error getting car models:', error);
     }
@@ -34,17 +39,7 @@ const CarListing = () => {
           <Row>
             <Col lg="12">
               <div className="d-flex align-items-center gap-3 mb-5">
-                <span className="d-flex align-items-center gap-2">
-                  <i className="ri-sort-asc"></i> Sort By
-                </span>
-
-                 // Filter for the low and high
-                <select>
-                  <option>Select</option>
-                  <option value="low">Low to High</option>
-                  <option value="high">High to Low</option> 
-                  
-                </select>
+                {/* ... (your sorting dropdown) */}
 
                 <div className="dropdown">
                   <button className="dropbtn" onClick={resetSelection}>
@@ -60,10 +55,7 @@ const CarListing = () => {
               </div>
             </Col>
 
-            {selectedCarModels.map((car) => (
-              console.log('Car:', car)
-            ))}
-
+            {/* Render CarItems for selectedCarModels */}
             {selectedCarModels.map((car) => (
               <CarItem key={car.carType} car={car} />
             ))}

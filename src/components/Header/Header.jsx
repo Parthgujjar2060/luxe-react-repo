@@ -36,19 +36,17 @@ const Header = () => {
   const toggleMenu = () => setMobileMenuOpen((prevState) => !prevState);
 
   useEffect(() => {
-  
+
     const fetchUserData = async () => {
       try {
-          let userId = "";
-        
-           
 
-        console.log("userId : ", userId);
-       const userData = await getuserData(userId);
+        // let userId = "";
+        // console.log("userId : ", userId);
+
+        const userData = await getuserData(userId);
         setUserID(`${userData.firstName} ${userData.lastName}`);
       } catch (error) {
         console.error('Error fetching user data:', error);
-
       }
     };
 
@@ -97,7 +95,13 @@ const Header = () => {
                           <Link to="/Signup" className=" d-flex align-items-center gap-1">
                             <i className="ri-user-line"></i> <RiUserLine /> Register
                           </Link>
-                          <div>{userId}</div>
+                          <div>
+                            <div>{userId}</div>
+                            {
+                              userId ? <Link to="/logout">Logout</Link> : ""
+                            }
+                          </div>
+
                         </div>
                       </Col>
                     </Row>
