@@ -29,15 +29,40 @@
 }
 
 .header__top__right a {
+  margin: 0 auto;
   text-decoration: none;
-  color: #fff;
+  display: flex;
+  justify-content: flex-end;
+  padding: 5px 10px;
+  color: #ffffff;
   font-size: 1.1rem;
   transition: color 0.5s ease; 
 }
 
-.header__top__right a:hover {
-  color: #f9a826;
+.login_left {
+  border: 1px solid #ffffff;
+  padding: 5px 10px; 
+  border-radius: 2%;
+  
 }
+
+.signup_left {
+  background-color: #f9a826; 
+  border: 1px solid rgb(255, 255, 255)fff;
+  border-radius: 2%;
+  color: #fff;
+}
+
+.login_left:hover {
+  box-shadow: #f9a826 0px 0px 4px;
+}
+
+.signup_left:hover {
+  box-shadow: #f9a826 0px 0px 4px;
+  
+}
+
+ 
 
 /* ================ main navbar styles =========== */
 

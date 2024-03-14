@@ -88,11 +88,11 @@ const Header = () => {
                   <Container>
                     <Row>
                       <Col lg="12" md="12" sm="6">
-                        <div className="header__top__right d-flex align-items-center justify-content-end gap-3">
-                          <Link to="/login" className=" d-flex align-items-center gap-1">
+                        <div className="  header__top__right d-flex align-items-center justify-content-end gap-3">
+                          <Link to="/login" className=" login_left d-flex align-items-center gap-1">
                             <i className="ri-login-circle-line"></i> <RiLoginCircleLine /> Login
                           </Link>
-                          <Link to="/Signup" className=" d-flex align-items-center gap-1">
+                          <Link to="/Signup" className="signup_left d-flex align-items-center gap-1">
                             <i className="ri-user-line"></i> <RiUserLine /> Register
                           </Link>
                           <div>
