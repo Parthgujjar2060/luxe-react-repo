@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { loginUser } from '../services';
 import LoginUserModel from '../models/loginUserModel';
 import { BrowserInfoModel } from '../models/browserInfoModel';
-import { Link } from 'react-router-dom';
 import '../styles/login.css';
 
 const Login = ({ setLoggedIn }) => {
@@ -45,8 +45,6 @@ const Login = ({ setLoggedIn }) => {
     }
   };
   
-  
-
   return (
     <div className="main_conainer" style={styles.container}>
       <form style={styles.form}>
@@ -83,8 +81,6 @@ const Login = ({ setLoggedIn }) => {
     </div>
   );
 };
-
-
 
 const styles = {
   container: {
@@ -137,4 +133,5 @@ const styles = {
     },
   },
 };
+
 export default Login;
