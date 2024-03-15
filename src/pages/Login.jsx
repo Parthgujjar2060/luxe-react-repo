@@ -1,14 +1,11 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { loginSuccess } from '../redux/actions';
 import { loginUser } from '../services';
 import LoginUserModel from '../models/loginUserModel';
 import { BrowserInfoModel } from '../models/browserInfoModel';
 import { Link } from 'react-router-dom';
 import '../styles/login.css';
 
-const Login = () => {
-  const dispatch = useDispatch();
+const Login = ({ setLoggedIn }) => {
   const [email, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -18,74 +15,75 @@ const Login = () => {
     try {
       setError(null);
       setLoading(true);
-      
+  
       const userData = {
-        email:email,
-        password:password,
+        email: email,
+        password: password,
       };
-
+  
       const user = new LoginUserModel(userData);
       const browserData = new BrowserInfoModel();
       const payload = {
         user: user,
         data: browserData
       };
-
+  
       const response = await loginUser(payload);
-
-      //dispatch commes here
-
-      console.log("response : ", response);
-      dispatch(loginSuccess(response));
-      setTimeout(() => {
-        window.location.href = '/home';
-      }, 1000);
+      console.log("response : ", response); // Log the response
+    
+  
+      if (response.success) {
+        setLoggedIn(true); // Update login status
+      } else {
+        setError('Invalid username or password');
+      }
     } catch (error) {
-      setError('Invalid username or password');
+      console.error('Login error:', error);
+      setError('An error occurred during login'); // Set a generic error message
     } finally {
       setLoading(false);
     }
-
-     
   };
+  
+  
 
+  return (
+    <div className="main_conainer" style={styles.container}>
+      <form style={styles.form}>
+        <h2 style={styles.heading}>Login</h2>
+        <label className='username' style={styles.label}>
+          Username:
+          <input
+            type="text"
+            value={email}
+            onChange={(e) => setUsername(e.target.value)}
+            style={styles.input}
+            required
+          />
+        </label>
+        <label className='password' style={styles.label}>
+          Password:
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            style={styles.input}
+            required
+          />
+        </label>
 
-    return (
-        <div style={styles.container}>
-            <form style={styles.form} >
-                <h2 style={styles.heading}>Login</h2>
-                <label style={styles.label}>
-                    Username:
-                    <input
-                        type="text"
-                        value={email}
-                        onChange={(e) => setUsername(e.target.value)}
-                        style={styles.input}
-                        required
-                    />
-                </label>
-                <label style={styles.label}>
-                    Password:
-                    <input
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        style={styles.input}
-                        required
-                    />
-                </label>
-
-                <div onClick={loginBtn} style={styles.button}>
-                  Login
-                </div>
-
-                <Link to="/Signup">Do signup here</Link>
-            </form>
-            {loading && <p>Loading...</p>}
-            {error && <p style={{ color: 'red' }}>{error}</p>}
+        <div onClick={loginBtn} style={styles.button}>
+          Login
         </div>
-    );
+
+        <Link to="/Signup">Do signup here</Link>
+      </form>
+      {loading && <p>Loading...</p>}
+      {error && <p style={{ color: 'red' }}>{error}</p>}
+    </div>
+  );
 };
+
 
 
 const styles = {

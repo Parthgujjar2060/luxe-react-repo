@@ -1,0 +1,14 @@
+.main_conainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #60648e;
+}
+
+.username{
+    margin-bottom: 20px;
+}
+.password{
+    margin-bottom: 20px;
+}

@@ -14,12 +14,12 @@ const loginUser = async (user) => {
     }
 };
 
-const getuserData = async (userId) => {
+const getuserData = async (sessionToken) => {
     const loginUrl = `/user`;
   
     try {
-        console.log("userId : ", userId);
-      const response = await luxeApi.post(loginUrl, { userId });
+        console.log("sessionToken : ", sessionToken);
+      const response = await luxeApi.post(loginUrl, sessionToken);
       return response?.data;
     } catch (error) {
       console.error('Error during fetching user data:', error);

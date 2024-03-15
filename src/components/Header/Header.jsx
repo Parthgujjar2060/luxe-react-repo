@@ -1,10 +1,10 @@
 import React, { useRef, useState, useEffect } from "react";
-import { RiLoginCircleLine, RiUserLine, RiMenuLine, RiSearchLine } from "react-icons/ri";
+import { RiLoginCircleLine, RiUserLine } from "react-icons/ri";
 import { Container, Row, Col } from "reactstrap";
 import { Link, NavLink } from "react-router-dom";
 import "../../styles/header.css";
 import { getuserData } from "../../services/authenticate";
-import { useSelector } from "react-redux";
+ 
 
 const navLinks = [
   {
@@ -28,35 +28,35 @@ const navLinks = [
     display: "Contact",
   },
 ];
+
 const Header = () => {
   const menuRef = useRef(null);
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [userId, setUserID] = useState("");
-
+  const [isLoggedIn, setLoggedIn] = useState(false); // Get sessionToken from redux store
+  const [sessionToken, setSessionToken] = useState();
   const toggleMenu = () => setMobileMenuOpen((prevState) => !prevState);
 
-  useEffect(() => {
+  
 
+  useEffect(() => {
     const fetchUserData = async () => {
       try {
-
-        // let userId = "";
-        // console.log("userId : ", userId);
-
-        const userData = await getuserData(userId);
+        const userData = await getuserData(sessionToken);
         setUserID(`${userData.firstName} ${userData.lastName}`);
       } catch (error) {
         console.error('Error fetching user data:', error);
       }
     };
-
-
-    fetchUserData();
-  }, []);
+     
+    if (sessionToken) {
+      fetchUserData();
+    }
+  }, [sessionToken]);
+  
 
   return (
     <header className="header">
-
       <div className="main__navbar">
         <Container>
           <div className="navigation__wrapper d-flex align-items-center justify-content-between">
@@ -89,9 +89,11 @@ const Header = () => {
                     <Row>
                       <Col lg="12" md="12" sm="6">
                         <div className="  header__top__right d-flex align-items-center justify-content-end gap-3">
-                          <Link to="/login" className=" login_left d-flex align-items-center gap-1">
-                            <i className="ri-login-circle-line"></i> <RiLoginCircleLine /> Login
-                          </Link>
+                          {!isLoggedIn && (
+                            <Link to="/login" className="login_left d-flex align-items-center gap-1">
+                              <i className="ri-login-circle-line"></i> <RiLoginCircleLine /> Login
+                            </Link>
+                          )}
                           <Link to="/Signup" className="signup_left d-flex align-items-center gap-1">
                             <i className="ri-user-line"></i> <RiUserLine /> Register
                           </Link>
@@ -101,7 +103,6 @@ const Header = () => {
                               userId ? <Link to="/logout">Logout</Link> : ""
                             }
                           </div>
-
                         </div>
                       </Col>
                     </Row>
