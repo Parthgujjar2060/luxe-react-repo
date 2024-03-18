@@ -9,7 +9,8 @@ const Login = ({ setLoggedIn }) => {
   const [email, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState([]);
+ const [loginResposne, setLoginResposne] = useState([]);
 
   const loginBtn = async () => {
     try {
@@ -29,11 +30,13 @@ const Login = ({ setLoggedIn }) => {
       };
   
       const response = await loginUser(payload);
-      console.log("response : ", response); // Log the response
+      console.log("response : ", response);  
     
   
       if (response.success) {
-        setLoggedIn(true); // Update login status
+        setLoggedIn(true);
+        setLoginResposne(prevResposes => [...prevResposes, response]);
+      
       } else {
         setError('Invalid username or password');
       }

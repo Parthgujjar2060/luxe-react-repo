@@ -29,15 +29,14 @@ const navLinks = [
   },
 ];
 
-const Header = () => {
+const Header = ({loginResponse }) => {
   const menuRef = useRef(null);
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [userId, setUserID] = useState("");
-  const [isLoggedIn, setLoggedIn] = useState(false); // Get sessionToken from redux store
+  const [isLoggedIn, setLoggedIn] = useState(false); 
   const [sessionToken, setSessionToken] = useState();
   const toggleMenu = () => setMobileMenuOpen((prevState) => !prevState);
 
-  
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -97,11 +96,8 @@ const Header = () => {
                           <Link to="/Signup" className="signup_left d-flex align-items-center gap-1">
                             <i className="ri-user-line"></i> <RiUserLine /> Register
                           </Link>
-                          <div>
-                            <div>{userId}</div>
-                            {
-                              userId ? <Link to="/logout">Logout</Link> : ""
-                            }
+                         <div>
+                          <p>Login Response: {loginResponse}</p>
                           </div>
                         </div>
                       </Col>
