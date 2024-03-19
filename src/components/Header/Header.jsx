@@ -77,6 +77,7 @@ const Header = ({loginResponse }) => {
                     {item.display}
                   </NavLink>
                 ))}
+
                 <div className="search__box">
                   <input type="text" placeholder="Search" />
                   <span>
