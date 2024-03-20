@@ -34,10 +34,10 @@ const Login = ({ setLoggedIn }) => {
 
       if (response.success) {
         setLoggedIn(true);
-        setLoginResponse(response.data); // Assuming response.data contains the login information
+        setLoginResponse(response.data);  
  
       } else {
-        setError('Invalid username or password'); // Set error message
+        setError('Invalid username or password');  
       }
     } catch (error) {
       console.error('Login error:', error);

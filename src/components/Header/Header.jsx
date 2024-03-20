@@ -4,7 +4,6 @@ import { Container, Row, Col } from "reactstrap";
 import { Link, NavLink } from "react-router-dom";
 import "../../styles/header.css";
 import { getuserData } from "../../services/authenticate";
- 
 
 const navLinks = [
   {
@@ -29,14 +28,12 @@ const navLinks = [
   },
 ];
 
-const Header = ({loginResponse }) => {
+const Header = ({ loginResponse }) => {
   const menuRef = useRef(null);
-  const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [userId, setUserID] = useState("");
-  const [isLoggedIn, setLoggedIn] = useState(false); 
+  const [isLoggedIn, setLoggedIn] = useState(false);
   const [sessionToken, setSessionToken] = useState();
-  const toggleMenu = () => setMobileMenuOpen((prevState) => !prevState);
-
+  const [showMenu, setShowMenu] = useState(false);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -44,67 +41,63 @@ const Header = ({loginResponse }) => {
         const userData = await getuserData(sessionToken);
         setUserID(`${userData.firstName} ${userData.lastName}`);
       } catch (error) {
-        console.error('Error fetching user data:', error);
+        console.error("Error fetching user data:", error);
       }
     };
-     
+
     if (sessionToken) {
       fetchUserData();
     }
   }, [sessionToken]);
-  
 
   return (
     <header className="header">
       <div className="main__navbar">
         <Container>
           <div className="navigation__wrapper d-flex align-items-center justify-content-between">
-            <span className="mobile__menu" onClick={toggleMenu}>
+            <span className="mobile__menu" onClick={() => setShowMenu(!showMenu)}>
               <i className="ri-menu-line"></i>
             </span>
 
-            <div className={`mobile__header  ${isMobileMenuOpen ? "header__active" : ""}`}>
-              <div className="menu">
-                {navLinks.map((item, index) => (
-                  <NavLink
-                    to={item.path}
-                    className={(navClass) =>
-                      navClass.isActive ? "nav__active nav__item" : "nav__item"
-                    }
-                    key={index}
-                    onClick={toggleMenu}
-                  >
-                    {item.display}
-                  </NavLink>
-                ))}
+            <div className={`menu ${showMenu ? 'show' : 'hide'}`}>
+              {navLinks.map((item, index) => (
+                <NavLink
+                  to={item.path}
+                  className={(navClass) =>
+                    navClass.isActive ? "nav__active nav__item" : "nav__item"
+                  }
+                  key={index}
+                >
+                  {item.display}
+                </NavLink>
+              ))}
 
-                <div className="search__box">
-                  <input type="text" placeholder="Search" />
-                  <span>
-                    <i className="ri-search-line"></i>
-                  </span>
-                </div>
-                <div className="header__top">
-                  <Container>
-                    <Row>
-                      <Col lg="12" md="12" sm="6">
-                        <div className="  header__top__right d-flex align-items-center justify-content-end gap-3">
-                          {!isLoggedIn && (
-                            <Link to="/login" className="login_left d-flex align-items-center gap-1">
-                              <i className="ri-login-circle-line"></i> <RiLoginCircleLine /> Login
-                            </Link>
-                          )}
-                          <Link to="/Signup" className="signup_left d-flex align-items-center gap-1">
-                            <i className="ri-user-line"></i> <RiUserLine /> Register
+              <div className="search__box">
+                <input type="text" placeholder="Search" />
+                <span>
+                  <i className="ri-search-line"></i>
+                </span>
+              </div>
+              <div className="header__top">
+                <Container>
+                  <Row>
+                    <Col lg="12" md="12" sm="6">
+                      <div className="header__top__right d-flex align-items-center justify-content-end gap-3">
+                        {!isLoggedIn && (
+                          <Link to="/login" className="login_left d-flex align-items-center gap-1">
+                            <i className="ri-login-circle-line"></i> <RiLoginCircleLine /> Login
                           </Link>
-                         <div className="responseLogin">
+                        )}
+                        <Link to="/Signup" className="signup_left d-flex align-items-center gap-1">
+                          <i className="ri-user-line"></i> <RiUserLine /> Register
+                        </Link>
+                        <div className="responseLogin">
                           <p>Login Response:- {loginResponse}</p>
-                          </div>
                         </div>
-                      </Col>
-                    </Row>
-                  </Container>
-                </div>
+                      </div>
+                    </Col>
+                  </Row>
+                </Container>
               </div>
             </div>
 
