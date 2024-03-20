@@ -9,12 +9,12 @@ const Login = ({ setLoggedIn }) => {
   const [email, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState([]);
- const [loginResposne, setLoginResposne] = useState([]);
+  const [error, setError] = useState(null); // Change error initial state to null
+  const [loginResponse, setLoginResponse] = useState(null); // Change initial state to null
 
   const loginBtn = async () => {
     try {
-      setError(null);
+      setError(null); // Reset error state
       setLoading(true);
   
       const userData = {
@@ -31,18 +31,17 @@ const Login = ({ setLoggedIn }) => {
   
       const response = await loginUser(payload);
       console.log("response : ", response);  
-    
-  
+
       if (response.success) {
         setLoggedIn(true);
-        setLoginResposne(prevResposes => [...prevResposes, response]);
-      
+        setLoginResponse(response.data); // Assuming response.data contains the login information
+ 
       } else {
-        setError('Invalid username or password');
+        setError('Invalid username or password'); // Set error message
       }
     } catch (error) {
       console.error('Login error:', error);
-      setError('An error occurred during login'); // Set a generic error message
+      setError('An error occurred during login');  
     } finally {
       setLoading(false);
     }
@@ -81,6 +80,8 @@ const Login = ({ setLoggedIn }) => {
       </form>
       {loading && <p>Loading...</p>}
       {error && <p style={{ color: 'red' }}>{error}</p>}
+      {loginResponse && <p>Login Response: {JSON.stringify(loginResponse)}</p>}
+
     </div>
   );
 };

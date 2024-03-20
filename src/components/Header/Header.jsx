@@ -97,8 +97,8 @@ const Header = ({loginResponse }) => {
                           <Link to="/Signup" className="signup_left d-flex align-items-center gap-1">
                             <i className="ri-user-line"></i> <RiUserLine /> Register
                           </Link>
-                         <div>
-                          <p>Login Response: {loginResponse}</p>
+                         <div className="responseLogin">
+                          <p>Login Response:- {loginResponse}</p>
                           </div>
                         </div>
                       </Col>
