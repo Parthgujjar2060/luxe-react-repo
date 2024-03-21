@@ -129,7 +129,8 @@
   color: #f9a826;
 }
 
-@media only screen and (max-width: 991px) {
+
+@media only screen and (max-width: 1024px) {
   .header__top,
   .header__middle,
   .menu {
@@ -137,10 +138,12 @@
     align-items: center;
     justify-content: space-between;
     gap: 2rem;
+    height: 50px;
   }
 
   .responseLogin {
     display: inline-block;  
+    height: 70px;
   }
 
   .search__box {
