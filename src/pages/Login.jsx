@@ -9,12 +9,12 @@ const Login = ({ setLoggedIn }) => {
   const [email, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null); // Change error initial state to null
-  const [loginResponse, setLoginResponse] = useState(null); // Change initial state to null
+  const [error, setError] = useState(null);  
+  const [loginResponse, setLoginResponse] = useState(null); 
 
   const loginBtn = async () => {
     try {
-      setError(null); // Reset error state
+      setError(null);  
       setLoading(true);
   
       const userData = {

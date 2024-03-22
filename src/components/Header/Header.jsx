@@ -31,7 +31,6 @@ const navLinks = [
 const Header = ({ loginResponse }) => {
   const menuRef = useRef(null);
   const [userId, setUserID] = useState("");
-  const [isLoggedIn, setLoggedIn] = useState(false);
   const [sessionToken, setSessionToken] = useState();
   const [showMenu, setShowMenu] = useState(false);
 
@@ -83,11 +82,11 @@ const Header = ({ loginResponse }) => {
                   <Row>
                     <Col lg="12" md="12" sm="6">
                       <div className="header__top__right d-flex align-items-center justify-content-end gap-3">
-                        {!isLoggedIn && (
+                        
                           <Link to="/login" className="login_left d-flex align-items-center gap-1">
                             <i className="ri-login-circle-line"></i> <RiLoginCircleLine /> Login
                           </Link>
-                        )}
+                        
                         <Link to="/Signup" className="signup_left d-flex align-items-center gap-1">
                           <i className="ri-user-line"></i> <RiUserLine /> Register
                         </Link>
