@@ -5,6 +5,8 @@ import "../../styles/car-item.css";
 
 const CarItem = ({car}) => {
 
+  // Work starts here for the datailing of the car
+
   const { photo, model, name, price } = car;
 
   return (
