@@ -10,8 +10,14 @@ const CarListing = () => {
   const [selectedCarModels, setSelectedCarModels] = useState([]);
 
   useEffect(() => {
- 
-    console.log("Selected Car Models:", selectedCarModels);
+    const storedCarModels = JSON.parse(localStorage.getItem('selectedCarModels'));
+    if (storedCarModels) {
+      setSelectedCarModels(storedCarModels);
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('selectedCarModels', JSON.stringify(selectedCarModels));
   }, [selectedCarModels]);
 
   const getCarModels = async (carType) => {
