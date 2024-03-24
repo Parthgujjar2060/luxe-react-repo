@@ -4,7 +4,7 @@ import Helmet from "../components/Helmet/Helmet";
 import CommonSection from "../components/UI/CommonSection";
 import CarItem from "../components/UI/CarItem";
 import "../styles/carListing.css";
-import { getQueriedCars } from "../services";
+import { getQueriedCars } from "../services/carFetch";
 
 const CarListing = () => {
   const [selectedCarModels, setSelectedCarModels] = useState([]);
