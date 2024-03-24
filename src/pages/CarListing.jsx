@@ -8,6 +8,7 @@ import { getQueriedCars } from "../services/carFetch";
 
 const CarListing = () => {
   const [selectedCarModels, setSelectedCarModels] = useState([]);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
   useEffect(() => {
     const storedCarModels = JSON.parse(localStorage.getItem('selectedCarModels'));
@@ -26,14 +27,15 @@ const CarListing = () => {
       console.log('Making API call for:', carType);
       const cars = await getQueriedCars({ carType });
       console.log(`Cars for ${carType}:`, cars.cars);
-      setSelectedCarModels((prevModels) => [...prevModels, ...cars.cars]);
+      setSelectedCarModels([...cars.cars]);
+      closeDropdown();
     } catch (error) {
       console.error('Error getting car models:', error);
     }
   };
 
-  const resetSelection = () => {
-    setSelectedCarModels([]);
+  const closeDropdown = () => {
+    setDropdownOpen(false);  
   };
 
   return (
@@ -48,15 +50,17 @@ const CarListing = () => {
                 {/* ... (your sorting dropdown) */}
 
                 <div className="dropdown">
-                  <button className="dropbtn" onClick={resetSelection}>
+                  <button className="dropbtn"  onClick={() => setDropdownOpen(!dropdownOpen)}>
                     Car Models
                   </button>
-                  <div className="dropdown-content">
-                    <button onClick={() => getCarModels('sedan')}>Sedan</button>
-                    <button onClick={() => getCarModels('hatchback')}>Hatchback</button>
-                    <button onClick={() => getCarModels('suv')}>SUV</button>
-                    <button onClick={() => getCarModels('sports')}>Sport</button>
-                  </div>
+                  {dropdownOpen && (
+                    <div className="dropdown-content">
+                      <button onClick={() => getCarModels('sedan')}>Sedan</button>
+                      <button onClick={() => getCarModels('hatchback')}>Hatchback</button>
+                      <button onClick={() => getCarModels('suv')}>SUV</button>
+                      <button onClick={() => getCarModels('sports')}>Sport</button>
+                    </div>
+                  )}
                 </div>
               </div>
             </Col>
