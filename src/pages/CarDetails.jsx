@@ -9,14 +9,15 @@ import CarModel from "../models/carsModel";
 const CarDetails = () => {
   const { slug } = useParams();
   const [carData, setCarData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchCarData() {
       try {
         const data = await CarModel.getAllCars();
         setCarData(data);
+        setLoading(false);
       } catch (error) {
-      
         console.error('Error fetching car data:', error);
       }
     }
@@ -30,8 +31,10 @@ const CarDetails = () => {
     window.scrollTo(0, 0);
   }, [singleCarItem]);
 
-  if (!singleCarItem) {
+  if (loading) {
     return <div>Loading...</div>;
+  } else if (!singleCarItem) {
+    return <div>Car not found</div>;
   }
 
   return (
