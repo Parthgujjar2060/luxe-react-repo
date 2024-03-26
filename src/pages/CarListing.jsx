@@ -65,7 +65,7 @@ const CarListing = () => {
               </div>
             </Col>
 
-            {/* Render CarItems for selectedCarModels */}
+          
             {selectedCarModels.map((car) => (
               <CarItem key={car.carType} car={car} />
             ))}

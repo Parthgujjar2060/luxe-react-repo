@@ -1,120 +1,57 @@
 import React, { useEffect, useState } from "react";
 import { Container, Row, Col } from "reactstrap";
 import Helmet from "../components/Helmet/Helmet";
-import { useParams } from "react-router-dom";
 import BookingForm from "../components/UI/BookingForm";
 import PaymentMethod from "../components/UI/PaymentMethod";
-import CarModel from "../models/carsModel";
 
-const CarDetails = () => {
-  const { slug } = useParams();
-  const [carData, setCarData] = useState([]);
+const CarDetails = ({ carName }) => {
+  const [carData, setCarData] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    async function fetchCarData() {
-      try {
-        const data = await CarModel.getAllCars();
-        setCarData(data);
-        setLoading(false);
-      } catch (error) {
-        console.error('Error fetching car data:', error);
+    const storedCarData = JSON.parse(localStorage.getItem("selectedCarModels"));
+    if (storedCarData) {
+      const selectedCar = storedCarData.find(car => car.carName === carName);
+      if (selectedCar) {
+        setCarData(selectedCar);
       }
     }
-
-    fetchCarData();
-  }, []);
-
-  const singleCarItem = carData.find((item) => item.carName === slug);
+    setLoading(false);
+  }, [carName]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [singleCarItem]);
+  }, [carData]);
 
   if (loading) {
     return <div>Loading...</div>;
-  } else if (!singleCarItem) {
-    return <div>Car not found</div>;
+  } else if (!carData) {
+    return <div>Car not found in local storage</div>;
   }
 
   return (
-    <Helmet title={singleCarItem.carName}>
+    <Helmet title={carData.carName}>
       <section>
         <Container>
           <Row>
             <Col lg="6">
-              <img src={singleCarItem.imgUrl} alt="" className="w-100" />
+              <img src={carData.photo} alt="" className="w-100" />
             </Col>
-
             <Col lg="6">
               <div className="car__info">
-                <h2 className="section__title">{singleCarItem.carName}</h2>
-
-                <div className="d-flex align-items-center gap-5 mb-4 mt-3">
-                  <h6 className="rent__price fw-bold fs-4">
-                    {singleCarItem.price}.00 / Day
-                  </h6>
-
-                  <span className="d-flex align-items-center gap-2">
-                    <span style={{ color: "#f9a826" }}>
-                      <i className="ri-star-s-fill"></i>
-                      <i className="ri-star-s-fill"></i>
-                      <i className="ri-star-s-fill"></i>
-                      <i className="ri-star-s-fill"></i>
-                      <i className="ri-star-s-fill"></i>
-                    </span>
-                    ({singleCarItem.rating} ratings)
-                  </span>
-                </div>
-
-                <p className="section__description">
-                  {singleCarItem.description}
-                </p>
-
-                <div className="d-flex align-items-center mt-3" style={{ columnGap: "4rem" }}>
-                  <span className="d-flex align-items-center gap-1 section__description">
-                    <i className="ri-roadster-line" style={{ color: "#f9a826" }}></i>{" "}
-                    {singleCarItem.model}
-                  </span>
-
-                  <span className="d-flex align-items-center gap-1 section__description">
-                    <i className="ri-settings-2-line" style={{ color: "#f9a826" }}></i>{" "}
-                    {singleCarItem.automatic}
-                  </span>
-
-                  <span className="d-flex align-items-center gap-1 section__description">
-                    <i className="ri-timer-flash-line" style={{ color: "#f9a826" }}></i>{" "}
-                    {singleCarItem.speed}
-                  </span>
-                </div>
-
-                <div className="d-flex align-items-center mt-3" style={{ columnGap: "2.8rem" }}>
-                  <span className="d-flex align-items-center gap-1 section__description">
-                    <i className="ri-map-pin-line" style={{ color: "#f9a826" }}></i>{" "}
-                    {singleCarItem.gps}
-                  </span>
-
-                  <span className="d-flex align-items-center gap-1 section__description">
-                    <i className="ri-wheelchair-line" style={{ color: "#f9a826" }}></i>{" "}
-                    {singleCarItem.seatType}
-                  </span>
-
-                  <span className="d-flex align-items-center gap-1 section__description">
-                    <i className="ri-building-2-line" style={{ color: "#f9a826" }}></i>{" "}
-                    {singleCarItem.brand}
-                  </span>
-                </div>
+                <h2 className="section__title">{carData.carName}</h2>
+                <p>Price: {carData.price}</p>
               </div>
             </Col>
-
-            <Col lg="7" className="mt-5">
+          </Row>
+          <Row>
+            <Col lg="7">
               <div className="booking-info mt-5">
                 <h5 className="mb-4 fw-bold">Booking Information</h5>
                 <BookingForm />
               </div>
             </Col>
-
-            <Col lg="5" className="mt-5">
+            <Col lg="5">
               <div className="payment__info mt-5">
                 <h5 className="mb-4 fw-bold">Payment Information</h5>
                 <PaymentMethod />
