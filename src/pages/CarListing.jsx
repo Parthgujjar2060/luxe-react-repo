@@ -47,7 +47,6 @@ const CarListing = () => {
           <Row>
             <Col lg="12">
               <div className="d-flex align-items-center gap-3 mb-5">
-                {/* ... (your sorting dropdown) */}
 
                 <div className="dropdown">
                   <button className="dropbtn"  onClick={() => setDropdownOpen(!dropdownOpen)}>

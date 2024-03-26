@@ -3,8 +3,10 @@ import { Container, Row, Col } from "reactstrap";
 import Helmet from "../components/Helmet/Helmet";
 import BookingForm from "../components/UI/BookingForm";
 import PaymentMethod from "../components/UI/PaymentMethod";
+import { useParams } from "react-router-dom";
 
-const CarDetails = ({ carName }) => {
+const CarDetails = () => {
+  const { carName } = useParams();
   const [carData, setCarData] = useState(null);
   const [loading, setLoading] = useState(true);
 
