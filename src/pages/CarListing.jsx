@@ -10,29 +10,21 @@ const CarListing = () => {
   const [selectedCarModels, setSelectedCarModels] = useState([]);
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  useEffect(() => {
-    const storedCarModels = JSON.parse(localStorage.getItem('selectedCarModels'));
-    if (storedCarModels) {
-      setSelectedCarModels(storedCarModels);
+
+  const getCars = async (carType) => {
+    setSelectedCarModels([]);
+    try{
+      const { cars } = await getQueriedCars({carType});
+      setSelectedCarModels(cars);
+      closeDropdown(); 
     }
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem('selectedCarModels', JSON.stringify(selectedCarModels));
-  }, [selectedCarModels]);
-
-  const getCarModels = async (carType) => {
-    console.log('Getting car models for:', carType);
-    try {
-      console.log('Making API call for:', carType);
-      const cars = await getQueriedCars({ carType });
-      console.log(`Cars for ${carType}:`, cars.cars);
-      setSelectedCarModels([...cars.cars]);
-      closeDropdown();
-    } catch (error) {
+    catch(error){
       console.error('Error getting car models:', error);
     }
-  };
+  
+  
+  }
+
 
   const closeDropdown = () => {
     setDropdownOpen(false);  
@@ -54,10 +46,10 @@ const CarListing = () => {
                   </button>
                   {dropdownOpen && (
                     <div className="dropdown-content">
-                      <button onClick={() => getCarModels('sedan')}>Sedan</button>
-                      <button onClick={() => getCarModels('hatchback')}>Hatchback</button>
-                      <button onClick={() => getCarModels('suv')}>SUV</button>
-                      <button onClick={() => getCarModels('sports')}>Sport</button>
+                      <button onClick={() => getCars('sedan')}>Sedan</button>
+                      <button onClick={() => getCars('hatchback')}>Hatchback</button>
+                      <button onClick={() => getCars('suv')}>SUV</button>
+                      <button onClick={() => getCars('sports')}>Sport</button>
                     </div>
                   )}
                 </div>
