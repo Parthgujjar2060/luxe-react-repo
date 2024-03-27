@@ -75,67 +75,82 @@ const Login = ({ setLoggedIn }) => {
         <div onClick={loginBtn} style={styles.button}>
           Login
         </div>
-
+        <div className='signUp'>
         <Link to="/Signup">Do signup here</Link>
+        </div>
       </form>
       {loading && <p>Loading...</p>}
       {error && <p style={{ color: 'red' }}>{error}</p>}
       {loginResponse && <p>Login Response: {JSON.stringify(loginResponse)}</p>}
-
     </div>
   );
 };
 
 const styles = {
-  container: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: '70vh',
-  },
-  heading: {
-    fontSize: '24px',
-    marginBottom: '20px',
-  },
-  form: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    border: '2px solid #ccc',
-    width: '300px',
-  },
-  label: {
-    margin: '10px 0',
-    fontSize: '16px',
-    textAlign: 'left',
-  },
-  input: {
-    padding: '8px',
-    fontSize: '14px',
-    margin: '5px 10px',
-    border: '2px solid #ccc',
-    borderRadius: '4px',
-  },
-  button: {
-    backgroundColor: '#000d6b',
-    color: '#ffffff',
-    padding: '10px',
-    fontSize: '16px',
-    border: 'none',
-    borderRadius: '15px',
-    cursor: 'pointer',
-    marginTop: '10px',
-    marginBottom: '10px',
-  },
-  '@media (max-width: 768px)': {
     container: {
-      height: '100vh',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      height: '70vh',
+    },
+    heading: {
+      fontSize: '24px',
+      marginBottom: '20px',
     },
     form: {
-      width: '80%',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      backgroundColor: '#fff', 
+      borderRadius: '10px', 
+      boxShadow: '0 4px 8px rgba(0, 0, 0, 0.5)', 
+      padding: '20px', 
+      width: '300px',
+      boxSizing: 'border-box', 
     },
-  },
-};
+    label: {
+      margin: '10px 0',
+      fontSize: '16px',
+      textAlign: 'left',
+    },
+    input: {
+      padding: '8px',
+      fontSize: '14px',
+      margin: '5px 0',
+      border: '2px solid #ccc',
+      borderRadius: '4px',
+      width: '100%',
+      boxSizing: 'border-box',
+    },
+    button: {
+      backgroundColor: '#000d6b',
+      color: '#ffffff',
+      padding: '10px',
+      fontSize: '16px',
+      border: 'none',
+      borderRadius: '15px',
+      cursor: 'pointer',
+      marginTop: '10px',
+      width: '100%',
+      boxSizing: 'border-box',
+    },
+    link: {
+      textDecoration: 'none', 
+      color: '#000d6b',  
+      marginTop: '10px',  
+    },
+    
+    '@media (max-width: 768px)': {
+      container: {
+        height: '100vh',
+      },
+      form: {
+        width: '80%',
+      },
+    }, 
+  };
+  
+
 
 export default Login;
