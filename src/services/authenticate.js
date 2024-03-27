@@ -19,7 +19,8 @@ const getuserData = async (sessionToken) => {
   
     try {
         console.log("sessionToken : ", sessionToken);
-      const response = await luxeApi.post(loginUrl, sessionToken);
+      const response = await luxeApi.post(loginUrl, {"sessionToken": sessionToken});
+      
       return response?.data;
     } catch (error) {
       console.error('Error during fetching user data:', error);
