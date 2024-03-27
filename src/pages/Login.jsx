@@ -5,11 +5,12 @@ import LoginUserModel from '../models/loginUserModel';
 import { BrowserInfoModel } from '../models/browserInfoModel';
 import '../styles/login.css';
 
-const Login = ({ setLoggedIn }) => {
+const Login = () => {
   const [email, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);  
+  const [loggedIn, setLoggedIn] = useState(false);
   const [loginResponse, setLoginResponse] = useState(null); 
 
   const loginBtn = async () => {
@@ -29,14 +30,22 @@ const Login = ({ setLoggedIn }) => {
         data: browserData
       };
   
-      const response = await loginUser(payload);
-      console.log("response : ", response);  
 
-      if (response.success) {
-        setLoggedIn(true);
-        setLoginResponse(response.data);  
- 
-      } else {
+      try {
+        const response = await loginUser(payload);
+        console.log("Login.jsx => Login response : ", response);  
+        if (response) {
+           setLoggedIn(true);
+           setLoginResponse(response.data);  
+            localStorage.setItem('token', JSON.stringify(response.sessionToken));
+
+            window.location.href = '/home';
+        }
+        else {
+          setError('Something went wrong, please try again later');  
+        }
+      } catch (error) {
+        console.error('Login error:', error);
         setError('Invalid username or password');  
       }
     } catch (error) {
