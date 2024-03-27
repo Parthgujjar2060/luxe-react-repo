@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useId } from "react";
 import { RiLoginCircleLine, RiUserLine } from "react-icons/ri";
 import { Container, Row, Col } from "reactstrap";
 import { Link, NavLink } from "react-router-dom";
@@ -31,23 +31,46 @@ const navLinks = [
 const Header = ({ loginResponse }) => {
   const menuRef = useRef(null);
   const [userId, setUserID] = useState("");
-  const [sessionToken, setSessionToken] = useState();
+  const [sessionToken, setSessionToken] = useState(null);
   const [showMenu, setShowMenu] = useState(false);
 
+
+
+  const fetchUserData = async () => {
+    try {
+      const userData = await getuserData(sessionToken);
+      setUserID(`${userData.user.fname} ${userData.user.lname}`);
+      console.log("User Data:", userData);
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
+
   useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const userData = await getuserData(sessionToken);
-        setUserID(`${userData.firstName} ${userData.lastName}`);
+
+    // get the token from local storage
+    const token = localStorage.getItem("token");
+    if (token) {
+      try { 
+        fetchUserData();
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
-    };
-
-    if (sessionToken) {
-      fetchUserData();
+      setSessionToken(token);
     }
+
+    // set the token in the state
+    setSessionToken(token);
+
+
   }, [sessionToken]);
+
+
+  const logOut = () => {
+    localStorage.removeItem("token");
+    window.location.href = "/home";
+  };
+
 
   return (
     <header className="header">
@@ -82,17 +105,34 @@ const Header = ({ loginResponse }) => {
                   <Row>
                     <Col lg="12" md="12" sm="6">
                       <div className="header__top__right d-flex align-items-center justify-content-end gap-3">
+                        {
+
+                          console.log("userId", userId)
+                        }
+                        {sessionToken ?
+                          <div className="responseLogin">
+                            <p>Hello, {userId}</p>
+                          </div> : (
+                            <div style={{
+                              display: "flex",
+                              gap: "1rem",
+                            }}>
+                              <Link to="/login" className="login_left d-flex align-items-center gap-1">
+                              <i className="ri-login-circle-line"></i> <RiLoginCircleLine /> Login
+                            </Link>
+    
+                            <Link to="/Signup" className="signup_left d-flex align-items-center gap-1">
+                              <i className="ri-user-line"></i> <RiUserLine /> Register
+                            </Link>
+                            </div>
+                          )
+                        }
                         
-                          <Link to="/login" className="login_left d-flex align-items-center gap-1">
-                            <i className="ri-login-circle-line"></i> <RiLoginCircleLine /> Login
-                          </Link>
-                        
-                        <Link to="/Signup" className="signup_left d-flex align-items-center gap-1">
-                          <i className="ri-user-line"></i> <RiUserLine /> Register
-                        </Link>
-                        <div className="responseLogin">
-                          <p>Login Response:- {loginResponse}</p>
-                        </div>
+                        {
+                         sessionToken ? <Link className="login_left d-flex align-items-center gap-1" onClick={logOut}>
+                            <i className="ri-user-line"></i> <RiUserLine /> Logout
+                          </Link> : null
+                        }
                       </div>
                     </Col>
                   </Row>
