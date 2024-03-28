@@ -1,24 +1,9 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { signUpuser } from '../services';
 import SignUpUserModel from '../models/signUpUserModel';
 import { useNavigate } from 'react-router-dom';
-
-import {
-  Box,
-  Button,
-  Card,
-  CardBody,
-  Center,
-  FormControl,
-  FormLabel,
-  Heading,
-  HStack,
-  Input,
-  Link,
-  Stack,
-  Text,
-  VStack,
-} from '@chakra-ui/react';
+import { Link } from 'react-router-dom';
+import '../styles/login.css'; // Import the shared CSS file
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -26,7 +11,7 @@ const Signup = () => {
   const lastname = useRef('');
   const username = useRef('');
   const password = useRef('');
-  const [signupStatus, setSignupStatus] = React.useState('');
+  const [signupStatus, setSignupStatus] = useState('');
 
   const checkInputs = async () => {
     try {
@@ -56,112 +41,98 @@ const Signup = () => {
   };
 
   return (
-    <Box>
-      <Center>
-        <Stack spacing='4'>
-          <VStack as='header' spacing='6' mt='8'>
-            <Heading
-              as='h1'
-              fontWeight='300'
-              fontSize='24px'
-              letterSpacing='-0.5px'
-            >
-              Sign in to Luxe Wheels
-            </Heading>
-          </VStack>
-          <Card bg='#f6f8fa' variant='outline' borderColor='#d8dee4' w='308px'>
-            <CardBody>
-              <form>
-                <Stack spacing='4'>
-                  <FormControl>
-                    <FormLabel size='sm'>First Name</FormLabel>
-                    <Input
-                      type='text'
-                      bg='white'
-                      borderColor='#d8dee4'
-                      size='sm'
-                      borderRadius='6px'
-                      ref={firstname}
-                    />
-                  </FormControl>
-                  <FormControl>
-                    <FormLabel size='sm'>Last Name</FormLabel>
-                    <Input
-                      type='text'
-                      bg='white'
-                      borderColor='#d8dee4'
-                      size='sm'
-                      borderRadius='6px'
-                      ref={lastname}
-                    />
-                  </FormControl>
-                  <FormControl>
-                    <FormLabel size='sm'>Username or email address</FormLabel>
-                    <Input
-                      type='text'
-                      bg='white'
-                      borderColor='#d8dee4'
-                      size='sm'
-                      borderRadius='6px'
-                      ref={username}
-                    />
-                  </FormControl>
-                  <FormControl>
-                    <HStack justify='space-between'>
-                      <FormLabel size='sm'>Password</FormLabel>
-                    </HStack>
-                    <Input
-                      type='password'
-                      bg='white'
-                      borderColor='#d8dee4'
-                      size='sm'
-                      borderRadius='6px'
-                      ref={password}
-                    />
-                  </FormControl>
-
-                  <Button
-                    onClick={checkInputs}
-                    bg='#2da44e'
-                    color='white'
-                    size='sm'
-                    _hover={{ bg: '#2c974b' }}
-                    _active={{ bg: '#298e46' }}
-                  >
-                    Sign up
-                  </Button>
-
-                  {signupStatus && (
-                    <Text fontSize='sm' color={signupStatus.includes("Error") ? 'red' : 'green'}>
-                      {signupStatus}
-                    </Text>
-                  )}
-                </Stack>
-              </form>
-            </CardBody>
-          </Card>
-
-          <Card variant='outline' borderColor='#d0d7de'></Card>
-        </Stack>
-      </Center>
-      <Center as='footer' mt='16'>
-        <HStack spacing='4' pt='2'>
-          <Link isExternal color='#0969da' href='#' fontSize='xs'>
-            Terms
-          </Link>
-          <Link isExternal color='#0969da' href='#' fontSize='xs'>
-            Privacy
-          </Link>
-          <Link isExternal color='#0969da' href='#' fontSize='xs'>
-            Security
-          </Link>
-          <Link isExternal href='#' fontSize='xs'>
-            Contact
-          </Link>
-        </HStack>
-      </Center>
-    </Box>
+    <div className="main_container" style={styles.container}>
+      <div style={styles.form}>
+        <h2 style={styles.heading}>Sign up to Luxe Wheels</h2>
+        <input
+          type="text"
+          placeholder="First Name"
+          ref={firstname}
+          style={styles.input}
+        />
+        <input
+          type="text"
+          placeholder="Last Name"
+          ref={lastname}
+          style={styles.input}
+        />
+        <input
+          type="text"
+          placeholder="Username or Email Address"
+          ref={username}
+          style={styles.input}
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          ref={password}
+          style={styles.input}
+        />
+        <div onClick={checkInputs} style={styles.button}>
+          Sign up
+        </div>
+        {signupStatus && (
+          <p style={{ color: signupStatus.includes("Error") ? 'red' : 'green' }}>
+            {signupStatus}
+          </p>
+        )}
+      </div>
+      <div className='signUp'>
+        <Link to="/login">Already have an account? Log in</Link>
+      </div>
+    </div>
   );
+};
+
+const styles = {
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: '70vh',
+  },
+  heading: {
+    fontSize: '24px',
+    marginBottom: '20px',
+  },
+  form: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    backgroundColor: '#fff', 
+    borderRadius: '10px', 
+    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.5)', 
+    padding: '20px', 
+    width: '300px',
+    boxSizing: 'border-box', 
+  },
+  input: {
+    padding: '8px',
+    fontSize: '14px',
+    margin: '10px 0',
+    border: '2px solid #ccc',
+    borderRadius: '4px',
+    width: '100%',
+    boxSizing: 'border-box',
+  },
+  button: {
+    backgroundColor: '#000d6b',
+    color: '#ffffff',
+    padding: '10px',
+    fontSize: '16px',
+    border: 'none',
+    borderRadius: '15px',
+    cursor: 'pointer',
+    marginTop: '10px',
+    width: '40%',
+    boxSizing: 'border-box',
+  },
+  link: {
+    textDecoration: 'none', 
+    color: '#000d6b',  
+    marginTop: '10px',  
+  },
 };
 
 export default Signup;
