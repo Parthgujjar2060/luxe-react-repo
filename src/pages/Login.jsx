@@ -141,7 +141,7 @@ const styles = {
       borderRadius: '15px',
       cursor: 'pointer',
       marginTop: '10px',
-      width: '100%',
+      width: '40%',
       boxSizing: 'border-box',
     },
     link: {
