@@ -49,10 +49,9 @@ const Footer = () => {
               </h1>
             </div>
             <p className="footer__logo-content">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Consequuntur, distinctio, itaque reiciendis ab cupiditate harum ex
-              quam veniam, omnis expedita animi quibusdam obcaecati mollitia?
-              Delectus et ad illo recusandae temporibus?
+              Rent Car Service is a car rental service provider that offers a
+              wide range of cars to choose from. We provide the best car rental
+              service at an affordable price.
             </p>
           </Col>
 
