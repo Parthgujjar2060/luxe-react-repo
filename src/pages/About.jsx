@@ -31,18 +31,13 @@ const About = () => {
                   We Are Committed To Provide Safe Ride Solutions
                 </h2>
 
+
                 <p className="section__description">
-                  Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                  Eveniet veniam assumenda aperiam accusantium ex autem
-                  perferendis repellendus nostrum delectus. Nemo et dolore est
-                  tempore rem minima adipisci magni dolorum ipsam.
+                  Welcome to our car rental company! We are dedicated to providing safe and reliable ride solutions for our customers. Whether you need a car for a day or a month, we have a wide range of vehicles to choose from. Our team of experienced drivers and staff are committed to ensuring your comfort and satisfaction throughout your journey.
                 </p>
 
                 <p className="section__description">
-                  Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                  Eveniet veniam assumenda aperiam accusantium ex autem
-                  perferendis repellendus nostrum delectus. Nemo et dolore est
-                  tempore rem minima adipisci magni dolorum ipsam.
+                  Our goal is to provide you with the best car rental experience possible. We offer competitive rates and flexible rental terms to suit your needs. Our fleet of vehicles is well-maintained and regularly serviced to ensure your safety and comfort. We also offer 24/7 customer support to assist you with any questions or concerns you may have. We look forward to serving you and making your journey a memorable one! 
                 </p>
 
                 <div className=" d-flex align-items-center gap-3 mt-4">
