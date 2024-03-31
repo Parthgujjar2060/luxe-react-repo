@@ -14,7 +14,7 @@ const BecomeDriverSection = () => {
           </Col>
 
           <Col lg="6" md="6" sm="12">
-            <button className="btn become__driver-btn mt-4">
+            <button  className="btn become__driver-btn mt-4">
               Become a Driver
             </button>
           </Col>
