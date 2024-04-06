@@ -10,25 +10,33 @@ const CarListing = () => {
   const [selectedCarModels, setSelectedCarModels] = useState([]);
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
-
   const getCars = async (carType) => {
     setSelectedCarModels([]);
-    try{
-      const { cars } = await getQueriedCars({carType});
+    try {
+      const { cars } = await getQueriedCars({ carType });
       setSelectedCarModels(cars);
-      closeDropdown(); 
-    }
-    catch(error){
+      closeDropdown();
+    } catch (error) {
       console.error('Error getting car models:', error);
     }
-  
-  
-  }
-
+  };
 
   const closeDropdown = () => {
-    setDropdownOpen(false);  
+    setDropdownOpen(false);
   };
+
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = "https://www.chatbase.co/embed.min.js";
+    script.defer = true;
+    script.setAttribute("chatbotId", "txm5Wv5V-R-8feHm4pcmf");
+    script.setAttribute("domain", "www.chatbase.co");
+    document.body.appendChild(script);
+
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
 
   return (
     <Helmet title="Cars">
@@ -39,9 +47,8 @@ const CarListing = () => {
           <Row>
             <Col lg="12">
               <div className="d-flex align-items-center gap-3 mb-5">
-
                 <div className="dropdown">
-                  <button className="dropbtn"  onClick={() => setDropdownOpen(!dropdownOpen)}>
+                  <button className="dropbtn" onClick={() => setDropdownOpen(!dropdownOpen)}>
                     Car Models
                   </button>
                   {dropdownOpen && (
@@ -56,13 +63,20 @@ const CarListing = () => {
               </div>
             </Col>
 
-          
             {selectedCarModels.map((car) => (
               <CarItem key={car.carType} car={car} />
             ))}
           </Row>
         </Container>
       </section>
+
+      {/* Embed chatbot script here */}
+      <script
+        src="https://www.chatbase.co/embed.min.js"
+        chatbotId="txm5Wv5V-R-8feHm4pcmf"
+        domain="www.chatbase.co"
+        defer
+      ></script>
     </Helmet>
   );
 };
