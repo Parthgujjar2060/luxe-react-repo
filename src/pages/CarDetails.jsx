@@ -11,7 +11,7 @@ const CarDetails = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const storedCarData = JSON.parse(localStorage.getItem("selectedCarModels"));
+    const storedCarData = JSON.parse(localStorage.getItem('carData'));
     if (storedCarData) {
       const selectedCar = storedCarData.find(car => car.carName === carName);
       if (selectedCar) {
