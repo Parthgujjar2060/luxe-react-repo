@@ -14,6 +14,7 @@ const CarListing = () => {
     setSelectedCarModels([]);
     try {
       const { cars } = await getQueriedCars({ carType });
+      localStorage.setItem('carData', JSON.stringify(cars));
       setSelectedCarModels(cars);
       closeDropdown();
     } catch (error) {
@@ -25,18 +26,18 @@ const CarListing = () => {
     setDropdownOpen(false);
   };
 
-  useEffect(() => {
-    const script = document.createElement('script');
-    script.src = "https://www.chatbase.co/embed.min.js";
-    script.defer = true;
-    script.setAttribute("chatbotId", "txm5Wv5V-R-8feHm4pcmf");
-    script.setAttribute("domain", "www.chatbase.co");
-    document.body.appendChild(script);
+  // useEffect(() => {
+  //   const script = document.createElement('script');
+  //   script.src = "https://www.chatbase.co/embed.min.js";
+  //   script.defer = true;
+  //   script.setAttribute("chatbotId", "txm5Wv5V-R-8feHm4pcmf");
+  //   script.setAttribute("domain", "www.chatbase.co");
+  //   document.body.appendChild(script);
 
-    return () => {
-      document.body.removeChild(script);
-    };
-  }, []);
+  //   return () => {
+  //     document.body.removeChild(script);
+  //   };
+  // }, []);
 
   return (
     <Helmet title="Cars">
