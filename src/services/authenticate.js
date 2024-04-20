@@ -41,22 +41,29 @@ const signUpuser = async (user) => {
 };
 
 
-const submitBookingData = async (bookingData) => {
-    const paymentsUrl = '/payments';  
-    
-    try {
-      const response = await luxeApi.post(paymentsUrl, bookingData); 
-      
+const submitBookingData = async (bookingData, sessionToken) => {
+  const paymentsUrl = '/payments';  
+  
+  try {
+      const requestData = {
+          ...bookingData,
+          sessionToken,
+         
+      };
+
+      const response = await luxeApi.post(paymentsUrl, requestData); 
+
       if (!response.ok) {
-        throw new Error("Network response was not ok");
+          throw new Error("Network response was not ok");
       }
-    
+  
       return response?.data; 
-    } catch (error) {
+  } catch (error) {
       console.error("Error:", error);
       throw error;
-    }
-  };
+  }
+};
+
   
 
 
