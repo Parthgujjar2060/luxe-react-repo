@@ -10,6 +10,7 @@
   column-gap: 1rem;
 }
 
+
 .header__top__left span {
   font-size: 0.9rem;
 }
@@ -78,7 +79,7 @@
   color: #fff;
   font-size: 1.3rem;
   cursor: pointer;
-  display: block; /* Show the mobile menu icon by default */
+  display: inline-block; /* Change display to inline-block */
 }
 
 .menu {
@@ -175,11 +176,13 @@
     flex-direction: column;
     row-gap: 2rem;
     justify-content: center;
-    transform: translateX(100%); /* Hide the menu off-screen by default */
+    transform: translateX(100%);
+    display: none;
   }
 
   .menu.show {
-    transform: translateX(0); /* Show the menu by translating it back to 0 */
+    transform: translateX(0);  
+    display : block;  
   }
 
   .menu a {
@@ -188,7 +191,8 @@
     font-size: 1rem;
   }
 
-  .mobile__menu i {
-    display: block; /* Show the mobile menu icon */
+  .mobile__menu {
+    display: block; /* Display the hamburger menu */
+    cursor: pointer; /* Change cursor to pointer */
   }
 }
