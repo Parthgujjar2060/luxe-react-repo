@@ -33,6 +33,18 @@ const Header = ({ loginResponse }) => {
   const [userId, setUserID] = useState("");
   const [sessionToken, setSessionToken] = useState(null);
   const [showMenu, setShowMenu] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  const handleResize = () => {
+    setIsMobile(window.innerWidth <= 768);
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   const fetchUserData = async () => {
     try {
@@ -67,10 +79,12 @@ const Header = ({ loginResponse }) => {
       <div className="main__navbar">
         <Container>
           <div className="navigation__wrapper d-flex align-items-center justify-content-between">
-            <span className="mobile__menu" onClick={() => setShowMenu(!showMenu)}>
-              <RiMenuLine />
-            </span>
-            <div className={`menu ${showMenu ? 'show' : 'hide'}`}>
+            {isMobile && (
+              <span className="mobile__menu" onClick={() => setShowMenu(!showMenu)}>
+                <RiMenuLine />
+              </span>
+            )}
+            <div className={`menu ${isMobile && (showMenu ? 'show' : 'hide')}`}>
               {navLinks.map((item, index) => (
                 <NavLink
                   to={item.path}
