@@ -1,8 +1,10 @@
 import React from "react";
 import "../../styles/become-driver.css";
 import { Container, Row, Col } from "reactstrap";
-
+import {DriverForm} from "./DriverForm.jsx";
 import driverImg from "../../assets/all-images/BMWphoto.png";
+
+// this should ope an new form
 
 const BecomeDriverSection = () => {
   return (
